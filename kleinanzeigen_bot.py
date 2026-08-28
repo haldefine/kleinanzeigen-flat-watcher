@@ -168,7 +168,10 @@ class Kleinanzeigen:
         self.jar, self.wenkse = {}, ""
         if cfg.get("use_browser_cookies"):
             self.jar = browser_cookies()
-        if not self.jar and os.path.exists(AUTH_FILE):
+        # $COOKIE_HEADER is how a server (Railway) gets the session -- there is
+        # no auth.txt there, so it must not be gated on that file existing
+        if not self.jar and (os.environ.get("COOKIE_HEADER")
+                             or os.path.exists(AUTH_FILE)):
             self.jar, self.wenkse = load_auth()
         self.s.cookies.update(self.jar or load_cookies())
 

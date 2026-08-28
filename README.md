@@ -127,12 +127,22 @@ accounts blocked.
 
    | Variable | Value |
    |---|---|
-   | `COOKIE_HEADER` | the full `Cookie: ...` header from a www.kleinanzeigen.de request |
+   | `COOKIE_HEADER` | contents of `cookie_header.txt` — see below |
    | `STATE_DIR` | `/data` |
    | `POLL_SECONDS` | `120` |
    | `SEED_FIRST_RUN` | `1` |
    | `WEBHOOK_URL` | optional, POSTs `{"text": ...}` per send and on session loss |
    | `DRY_RUN` | `1` for the first deploy, then `0` |
+
+**Do not paste `auth.txt` into `COOKIE_HEADER`.** It is a multi-line cURL blob
+and env vars truncate at the first line. Run:
+
+```bash
+python3 make_env.py     # -> cookie_header.txt, one line, session cookies only
+```
+
+and paste that file's contents instead. It refuses to write the file if the
+login cookies are missing, so a bad capture is caught before you deploy.
 
 **First run seeds.** With `SEED_FIRST_RUN=1` the first cycle records everything
 currently listed as *seen* without messaging it, so a fresh deploy never blasts

@@ -1,5 +1,6 @@
 auth.txt
 cookies.txt
+cookie_header.txt
 state.json
 results.csv
 .env
