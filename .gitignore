@@ -1,0 +1,6 @@
+auth.txt
+cookies.txt
+state.json
+results.csv
+.env
+__pycache__/

@@ -1,0 +1,40 @@
+{
+  "category_slug": "wohnung-mieten",
+  "category_id": 203,
+  "location_slug": "augsburg",
+  "location_id": 7518,
+  "max_warm_rent": 800,
+  "include_unknown_warm": true,
+  "exclude_keywords": [
+    "tausch",
+    "wg-zimmer",
+    "wg zimmer",
+    "nachmieter gesucht",
+    "suche wohnung"
+  ],
+  "contact_name": "Artemii",
+  "phone_number": "+491758394338",
+  "message_template": "Guten Tag,\n\nich interessiere mich sehr für Ihre Wohnung \"{title}\" ({rooms} Zimmer, {size}) in {address}.\n\nIch bin berufstätig, Nichtraucher, ohne Haustiere und kann Gehaltsnachweise, SCHUFA-Auskunft sowie eine Mietschuldenfreiheitsbescheinigung vorlegen. Ein Besichtigungstermin wäre mir kurzfristig und flexibel möglich.\n\nÜber eine Rückmeldung würde ich mich sehr freuen.\n\nMit freundlichen Grüßen\n{name}",
+  "max_messages_per_run": 0,
+  "delay_seconds": [
+    3,
+    7
+  ],
+  "message_delay_seconds": [
+    25,
+    60
+  ],
+  "applicant": {
+    "first_name": "Artemii",
+    "last_name": "Vasylchenko",
+    "salutation": "MALE",
+    "street": "",
+    "zip_code": "",
+    "schufa": "AVAILABLE",
+    "household": "ONE_PERSON_HOUSEHOLD",
+    "employment": "FREELANCER",
+    "income": "EUR_1500_TO_2000",
+    "pets": "Keine"
+  },
+  "use_browser_cookies": false
+}
