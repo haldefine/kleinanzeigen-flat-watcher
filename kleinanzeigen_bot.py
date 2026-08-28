@@ -108,18 +108,28 @@ def load_auth():
             sys.exit(f"Missing {AUTH_FILE} and $COOKIE_HEADER — see README.md")
         raw = open(AUTH_FILE, encoding="utf-8").read()
 
+    # accept: a `Copy as cURL` blob, a raw `Cookie: ...` header, or a bare
+    # `a=1; b=2` cookie string
     m = re.search(r"-H 'Cookie: ([^']*)'", raw) or \
         re.search(r"^Cookie:\s*(.+)$", raw, re.M | re.I)
-    if not m:
-        sys.exit(f"No Cookie header found in {AUTH_FILE}")
+    cookie_str = m.group(1) if m else raw.strip()
     jar = {}
-    for part in m.group(1).split(";"):
+    for part in cookie_str.split(";"):
         if "=" in part:
             k, v = part.split("=", 1)
             jar[k.strip()] = v.strip()
-    if "access_token" not in jar:
-        sys.exit("auth.txt has no 'access_token' cookie — capture a request to "
-                 "www.kleinanzeigen.de (not gateway.kleinanzeigen.de).")
+
+    missing = [c for c in ("access_token", "refresh_token") if c not in jar]
+    if missing:
+        sys.exit(
+            f"❌ {len(jar)} cookies found, but these login cookies are missing: "
+            f"{', '.join(missing)}\n\n"
+            "They are HttpOnly, so they never appear in the Console\n"
+            "(document.cookie) or in most cookie-exporter extensions.\n\n"
+            "Get them from DevTools → Network → any request to\n"
+            "www.kleinanzeigen.de → right-click → Copy → Copy as cURL,\n"
+            "and save the whole thing. Check it with:\n"
+            "    grep -c access_token auth.txt      # must print 1 or more")
 
     # anti-bot token that the contact form submits alongside the message
     w = re.search(r"contactPosterWenkseSessionId=([^&'\s]+)", raw)
